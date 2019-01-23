@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed Jan 23 15:30:57 2019
+Created on Wed Jan 23 17:52:50 2019
 
 @author: jeetu
 """
+
 import nltk
 #importing the speech of george bush from state union
 from nltk.corpus import state_union
@@ -26,7 +27,17 @@ def process_content():
         for i in tokenized:
             words=nltk.word_tokenize(i)
             tagged=nltk.pos_tag(words)
-            print(tagged)
+            #RegularExpression taking adverb verb noun proper and noun
+            chunkGram = r"""Chunk:{<RB.?>*<VB.?>*<NNP>+<NN>?} """
+            
+            chunkParser =nltk.RegexpParser(chunkGram)
+            chunked = chunkParser.parse(tagged)
+            #output in the tree format
+            chunked.draw()
+
+
+
+
     except Exception as e:
         print(str(e)) 
         
