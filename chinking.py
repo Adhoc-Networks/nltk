@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Thu Jan 24 10:19:20 2019
+Created on Thu Jan 24 10:02:49 2019
 
 @author: jeetu
 """
@@ -27,13 +27,15 @@ def process_content():
         for i in tokenized:
             words=nltk.word_tokenize(i)
             tagged=nltk.pos_tag(words)
-            
-            #Named Entity
-            
-            namedEnt = nltk.ne_chunk(tagged)
-            
-            namedEnt.draw()
-         
+            #RegularExpression taking adverb verb noun proper and noun
+            chunkGram = r"""Chunk:{<.*>+}
+                                    }<VB.?|IN|DT|TO>+ {"""
+                                    #opposite bracket for excluding from the list/chunk
+            chunkParser =nltk.RegexpParser(chunkGram)
+            chunked = chunkParser.parse(tagged)
+            #output in the tree format
+            chunked.draw()
+
 
 
 
@@ -41,18 +43,3 @@ def process_content():
         print(str(e)) 
         
 process_content() 
-
-
-'''
-NE              Type	Examples
-
-ORGANIZATION	   Georgia-Pacific Corp., WHO
-PERSON	     Eddy Bonte, President Obama
-LOCATION	       Murray River, Mount Everest
-DATE	       June, 2008-06-29
-TIME	       two fifty a m, 1:30 p.m.
-MONEY	      175 million Canadian Dollars, GBP 10.40
-PERCENT	        twenty pct, 18.75 %
-FACILITY	       Washington Monument, Stonehenge
-GPE	        South East Asia, Midlothian
-'''

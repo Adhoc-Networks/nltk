@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Thu Jan 24 10:19:20 2019
+Created on Thu Jan 24 10:50:16 2019
 
 @author: jeetu
 """
@@ -24,16 +24,15 @@ tokenized = custom_sent_tokenizer.tokenize(sample_text)
 
 def process_content():
     try:
-        for i in tokenized:
+        for i in tokenized[5:]:
             words=nltk.word_tokenize(i)
             tagged=nltk.pos_tag(words)
             
-            #Named Entity
+            nameEnt = nltk.ne_chunk(tagged)
             
-            namedEnt = nltk.ne_chunk(tagged)
-            
-            namedEnt.draw()
-         
+            nameEnt.draw()
+
+
 
 
 
@@ -42,17 +41,15 @@ def process_content():
         
 process_content() 
 
-
 '''
-NE              Type	Examples
-
+NE Type	    Examples
 ORGANIZATION	   Georgia-Pacific Corp., WHO
 PERSON	     Eddy Bonte, President Obama
-LOCATION	       Murray River, Mount Everest
-DATE	       June, 2008-06-29
-TIME	       two fifty a m, 1:30 p.m.
-MONEY	      175 million Canadian Dollars, GBP 10.40
-PERCENT	        twenty pct, 18.75 %
-FACILITY	       Washington Monument, Stonehenge
-GPE	        South East Asia, Midlothian
+LOCATION	   Murray River, Mount Everest
+DATE	   June, 2008-06-29
+TIME	   two fifty a m, 1:30 p.m.
+MONEY	  175 million Canadian Dollars, GBP 10.40
+PERCENT     	twenty pct, 18.75 %
+FACILITY	   Washington Monument, Stonehenge
+GPE	    South East Asia, Midlothian
 '''
