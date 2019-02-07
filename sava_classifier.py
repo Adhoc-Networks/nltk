@@ -11,6 +11,10 @@ import random
 from nltk.corpus import movie_reviews
 import pickle
 
+from sklearn.naive_bayes import MultinomialNB, GaussianNB, BernoulliNB
+from sklearn.linear_model import LogisticRegression, SGDClassifier
+#from sklearn.svm import SVC, LinearSVC, NuSVC
+#from sklearn.exceptions import NotFittedError
 documents = [(list(movie_reviews.words(fileid)), category)
                 for category in movie_reviews.categories()
                 for fileid in movie_reviews.fileids(category)]
